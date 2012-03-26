@@ -8,25 +8,59 @@ background = background.convert()
 background.fill((255, 255, 255))
 
 scale = 2
-spritesheet = pygame.image.load("../base/walking.png")
+spritesheet = pygame.image.load("../spritesheets/base_walking.png").convert()
 spritesheet = pygame.transform.scale(spritesheet, (128*scale, 128*scale))
-
-ss_pants = pygame.image.load("../base/pants.png")
+spritesheet.set_colorkey((255,255,255));
+ss_pants = pygame.image.load("../spritesheets/tights_01.png")
 ss_pants = pygame.transform.scale(ss_pants, (128*scale, 128*scale))
-ss_armor = pygame.image.load("../base/armor.png")
+ss_armor = pygame.image.load("../spritesheets/breastplate_01.png")
 ss_armor = pygame.transform.scale(ss_armor, (128*scale, 128*scale))
-ss_hair = pygame.image.load("../base/hair.png")
+ss_hair = pygame.image.load("../spritesheets/headgear_01.png")
 ss_hair = pygame.transform.scale(ss_hair, (128*scale, 128*scale))
 
 show_armor = False
 show_pants = True
 show_hair = True
 
+def load_tile_table(filename, width, height):
+    image = pygame.image.load(filename).convert_alpha()
+    image = pygame.transform.scale(image, (128*scale, 128*scale))
+    #image.set_colorkey((255,0,255));
+    image_width, image_height = image.get_size()
+    tile_table = []
+    for tile_y in range(0, image_height/height):
+        #line = []
+        #tile_table.append(line)
+        for tile_x in range(0, image_width/width):
+            rect = (tile_x*width, tile_y*height, width, height)
+            tile_table.append(image.subsurface(rect))
+    return tile_table
+
+tileset = load_tile_table("../tilesets/tileset_03.png", 32*scale, 32*scale)
+
+tilemap = [[6, 0, 0, 0, 0, 0, 6, 0, 6, 0],
+[12, 0, 1, 5, 5, 5, 9, 0, 12, 0],
+[0, 0, 6, 0, 0, 0, 6, 0, 0, 0],
+[5, 5, 10, 2, 0, 0, 7, 5, 8, 5],
+[0, 0, 0, 7, 5, 5, 3, 0, 6, 0],
+[5, 2, 0, 6, 0, 0, 0, 0, 6, 0],
+[0, 12, 0, 6, 0, 1, 11, 0, 4, 5],
+[0, 0, 0, 6, 0, 6, 0, 0, 0, 0]
+]
+
+tilex = 0
+tiley = 0
+for tiley in range(8):
+	for tilex in range(10):
+		background.blit(tileset[14], (tilex*32*scale, tiley*32*scale))
+		background.blit(tileset[tilemap[tiley][tilex]-1], (tilex*32*scale, tiley*32*scale))
+
+
 clock = pygame.time.Clock()
 frame = 0;
 direction = 1;
 x = 320
-y = 240
+y = 320
 moving = False
 pygame.key.set_repeat()
 while running:

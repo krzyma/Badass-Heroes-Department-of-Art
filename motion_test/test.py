@@ -8,9 +8,9 @@ background = background.convert()
 background.fill((255, 255, 255))
 
 scale = 2
-spritesheet = pygame.image.load("../spritesheets/base_walking.png").convert()
+spritesheet = pygame.image.load("../spritesheets/base.png").convert_alpha()
 spritesheet = pygame.transform.scale(spritesheet, (128*scale, 128*scale))
-spritesheet.set_colorkey((255,255,255));
+#spritesheet.set_colorkey((255,255,255));
 ss_pants = pygame.image.load("../spritesheets/tights_01.png")
 ss_pants = pygame.transform.scale(ss_pants, (128*scale, 128*scale))
 ss_armor = pygame.image.load("../spritesheets/breastplate_01.png")

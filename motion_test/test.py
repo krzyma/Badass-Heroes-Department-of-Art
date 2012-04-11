@@ -24,7 +24,7 @@ show_hair = True
 
 def load_tile_table(filename, width, height):
     image = pygame.image.load(filename).convert_alpha()
-    image = pygame.transform.scale(image, (128*scale, 128*scale))
+    image = pygame.transform.scale(image, (128*scale, 160*scale))
     #image.set_colorkey((255,0,255));
     image_width, image_height = image.get_size()
     tile_table = []
@@ -36,7 +36,22 @@ def load_tile_table(filename, width, height):
             tile_table.append(image.subsurface(rect))
     return tile_table
 
-tileset = load_tile_table("../tilesets/tileset_03.png", 32*scale, 32*scale)
+def load_shadows_table(filename, width, height):
+    image = pygame.image.load(filename).convert_alpha()
+    image = pygame.transform.scale(image, (128*scale, 160*2*scale))
+    #image.set_colorkey((255,0,255));
+    image_width, image_height = image.get_size()
+    tile_table = []
+    for tile_y in range(0, image_height/height):
+        #line = []
+        #tile_table.append(line)
+        for tile_x in range(0, image_width/width):
+            rect = (tile_x*width, tile_y*height, width, height)
+            tile_table.append(image.subsurface(rect))
+    return tile_table
+
+tileset = load_tile_table("../tilesets/tileset2.png", 32*scale, 32*scale)
+shadows = load_shadows_table("../tilesets/tileset2-shadows.png", 32*scale, 64*scale)
 
 tilemap = [[6, 0, 0, 0, 0, 0, 6, 0, 6, 0],
 [12, 0, 1, 5, 5, 5, 9, 0, 12, 0],
@@ -52,8 +67,9 @@ tilex = 0
 tiley = 0
 for tiley in range(8):
 	for tilex in range(10):
-		background.blit(tileset[14], (tilex*32*scale, tiley*32*scale))
+		#background.blit(tileset[16], (tilex*32*scale, tiley*32*scale))
 		background.blit(tileset[tilemap[tiley][tilex]-1], (tilex*32*scale, tiley*32*scale))
+		background.blit(shadows[tilemap[tiley][tilex]-1], (tilex*32*scale, tiley*32*scale))
 
 
 clock = pygame.time.Clock()

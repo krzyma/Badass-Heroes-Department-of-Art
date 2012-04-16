@@ -8,7 +8,7 @@ background = background.convert()
 background.fill((255, 255, 255))
 
 scale = 2
-spritesheet = pygame.image.load("../spritesheets/base.png").convert_alpha()
+spritesheet = pygame.image.load("../spritesheets/npc-zombie.png").convert_alpha()
 spritesheet = pygame.transform.scale(spritesheet, (128*scale, 128*scale))
 #spritesheet.set_colorkey((255,255,255));
 ss_pants = pygame.image.load("../spritesheets/tights_01.png")
@@ -69,7 +69,7 @@ for tiley in range(8):
 	for tilex in range(10):
 		#background.blit(tileset[16], (tilex*32*scale, tiley*32*scale))
 		background.blit(tileset[tilemap[tiley][tilex]-1], (tilex*32*scale, tiley*32*scale))
-		background.blit(shadows[tilemap[tiley][tilex]-1], (tilex*32*scale, tiley*32*scale))
+		#background.blit(shadows[tilemap[tiley][tilex]-1], (tilex*32*scale, tiley*32*scale))
 
 
 clock = pygame.time.Clock()
